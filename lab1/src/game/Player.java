@@ -3,6 +3,7 @@ package game;
 public abstract class Player {
 	protected String userId;
 	
+	
 	public Player(String userId) {
 		this.userId = userId; 
 	}
