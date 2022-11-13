@@ -27,4 +27,5 @@ public class SortedListModel<E> extends AbstractListModel<E> {
 	public E getElementAt(int index) {
 		return list.get(index);
 	}
+
 }

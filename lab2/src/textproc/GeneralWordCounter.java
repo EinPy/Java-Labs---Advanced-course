@@ -27,7 +27,6 @@ public class GeneralWordCounter implements TextProcessor{
 		}
 	}
 
-
 	public void report() {
 //		for (String s : wCount.keySet()) {
 //			if (wCount.get(s) >= 200) {
@@ -50,7 +49,9 @@ public class GeneralWordCounter implements TextProcessor{
 			System.out.println(wordList.get(i).getKey() + ": " + wordList.get(i).getValue());
 		}
 	}
-	 
 	
+	public List<Map.Entry<String, Integer>> getWordList(){
+		return new ArrayList(wCount.entrySet());
+	}
 
 }
