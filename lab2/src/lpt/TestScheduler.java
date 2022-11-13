@@ -2,6 +2,7 @@ package lpt;
 
 import java.util.ArrayList;
 
+
 public class TestScheduler {
 
 	public static void main(String[] args) {
@@ -21,5 +22,4 @@ public class TestScheduler {
 		s.makeSchedule(jobList);
 		s.printSchedule();
 	}
-
 }
