@@ -21,12 +21,14 @@ public class FifoQueue<E> extends AbstractQueue<E> implements Queue<E> {
 	public boolean offer(E e) {
 		size += 1;
 		QueueNode<E> n = new QueueNode<E>(e);
-		n.next = n;
+		
 		if (last == null) {
+			n.next = n;
 			last = n;
 			return true;
 		}
 		n.next = last.next;
+		last.next = n;
 		last = n;
 		return true;
 	}
@@ -62,16 +64,48 @@ public class FifoQueue<E> extends AbstractQueue<E> implements Queue<E> {
 		if (last == null) {
 			return null;
 		}
-		size -= 1;
-		int s = size();
-		if (s == 1) {
+		if (size == 1) {
 			QueueNode<E> temp = last;
 			last = null;
+			size -= 1;
 			return temp.element;
 		}
 		QueueNode<E> head = last.next;
 		last.next = last.next.next;
+		size -= 1;
 		return head.element;
+	}
+	/**
+	* Appends the specified queue to this queue
+	* post: all elements from the specified queue are appended
+	* to this queue. The specified queue (q) is empty after the call.
+	* @param q the queue to append
+	* @throws IllegalArgumentException if this queue and q are identical
+	*/
+	public void append(FifoQueue<E> q) {
+		//Check if adding non addable queue
+		if (q == null) {
+			return;
+		}
+		if (q.last== null) {
+			return;
+		}
+		if (q.last.next== null) {
+			return;
+		}
+		//Check if que that is adding to is null, and if so, make it the second que
+		if (last == null) {
+			last = q.last;
+			size = q.size;
+		}else {
+			q.last.next = last.next;
+			last.next = q.last.next;
+			last = q.last;
+			size += q.size;
+			q.size = 0;
+			q.last = null;
+		}
+		return;
 	}
 	
 	/**	
@@ -79,7 +113,32 @@ public class FifoQueue<E> extends AbstractQueue<E> implements Queue<E> {
 	 * @return an iterator over the elements in this queue
 	 */	
 	public Iterator<E> iterator() {
-		return null;
+		return new QueueIterator();
+	}
+	private class QueueIterator implements Iterator<E>{
+		private QueueNode<E> pos;
+		int seen;
+		
+		private QueueIterator() {
+			pos = last; // head of queue
+			seen = 0;
+		}
+		
+		public boolean hasNext() {
+			if (pos != null && seen != size) {
+				return true;
+			}
+			return false;
+		}
+		
+		public E next() {
+			if (pos == null || seen == size) {
+				throw new NoSuchElementException();
+			}
+			pos = pos.next;
+			seen += 1;
+			return pos.element;
+		}
 	}
 	
 	private static class QueueNode<E> {
@@ -91,4 +150,5 @@ public class FifoQueue<E> extends AbstractQueue<E> implements Queue<E> {
 			next = null;
 		}
 	}
+	
 }
