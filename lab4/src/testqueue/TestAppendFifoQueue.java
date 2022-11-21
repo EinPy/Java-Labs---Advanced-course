@@ -85,6 +85,30 @@ class TestAppendFifoQueue {
 		assertFalse(itr.hasNext(), "Wrong result from hasNext");
 		assertThrows(NoSuchElementException.class, () -> itr.next());
 	}
+	@Test
+	void doubleTrouble() {
+		int nbr = 5;
+		for (int i = 1; i <= nbr; i++) {
+			myIntQueue.offer(i);
+		}
+		int nbr2 = 10;
+		for (int i = 6; i <= nbr2; i++) {
+			myIntQueue2.offer(i);
+		}
+		myIntQueue.append(myIntQueue2);
+		//Size
+		assertEquals(10,myIntQueue.size());
+		//Order
+		Iterator<Integer> itr = myIntQueue.iterator();
+		assertTrue(itr.hasNext(), "Wrong result from hasNext");
+		for (int i = 1; i <= nbr2; i++) {
+			//System.out.print(i);
+			assertTrue(itr.hasNext(), "Wrong result from hasNext");
+			assertEquals(Integer.valueOf(i), itr.next(), "Wrong result from next: " + i);
+		}
+		assertFalse(itr.hasNext(), "Wrong result from hasNext");
+		assertThrows(NoSuchElementException.class, () -> itr.next());
+	}
 	
 
 }

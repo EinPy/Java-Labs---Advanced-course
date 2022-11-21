@@ -98,8 +98,9 @@ public class FifoQueue<E> extends AbstractQueue<E> implements Queue<E> {
 			last = q.last;
 			size = q.size;
 		}else {
+			QueueNode<E> temp = q.last.next;
 			q.last.next = last.next;
-			last.next = q.last.next;
+			last.next = temp;
 			last = q.last;
 			size += q.size;
 			q.size = 0;
