@@ -84,13 +84,10 @@ public class FifoQueue<E> extends AbstractQueue<E> implements Queue<E> {
 	*/
 	public void append(FifoQueue<E> q) {
 		//Check if adding non addable queue
-		if (q == null) {
-			return;
+		if (q == this) {
+			throw new IllegalArgumentException();
 		}
-		if (q.last== null) {
-			return;
-		}
-		if (q.last.next== null) {
+		if(q.last== null ) {
 			return;
 		}
 		//Check if que that is adding to is null, and if so, make it the second que
@@ -106,7 +103,6 @@ public class FifoQueue<E> extends AbstractQueue<E> implements Queue<E> {
 			q.size = 0;
 			q.last = null;
 		}
-		return;
 	}
 	
 	/**	
