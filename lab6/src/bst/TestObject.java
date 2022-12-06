@@ -2,11 +2,13 @@ package bst;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Comparator;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class TestObject {
+class TestObject<E> {
 
 	private BinarySearchTree<Integer> myIntTree;
 	private BinarySearchTree<String> myStringTree;
@@ -26,6 +28,7 @@ class TestObject {
 	@Test
 	void testEmpty() {
 		assertEquals(0, myIntTree.size(), "Check size of empty tree");
+		assertEquals(null, myIntTree.root, "Check if root exists");
 	}
 	
 	@Test
@@ -56,6 +59,21 @@ class TestObject {
 		assertEquals("A", myStringTree.root.left.left.element, "Root at depth 2");
 		assertEquals("C", myStringTree.root.left.right.element, "Root at depth 2");
 		myStringTree.printTree();
+	}
+	
+	@Test
+	void testComparator() {
+		Comparator<E> mycomp = (e1, e2) -> ((Comparable<E>) e2).compareTo(e1);
+		BinarySearchTree<Integer> reverseTree = new BinarySearchTree<Integer>((Comparator<Integer>) mycomp) ;
+		reverseTree.add(5);
+		reverseTree.add(3);
+		reverseTree.add(8);
+		reverseTree.add(8);
+		assertEquals(5, reverseTree.root.element, "Is root added?");
+		assertEquals(8, reverseTree.root.left.element, "Is root added?");
+		assertEquals(3, reverseTree.root.right.element, "Is root added?");
+		assertEquals(false, reverseTree.add(8), "test");
+		assertEquals(true, reverseTree.add(12), "test");
 	}
 
 

@@ -24,8 +24,8 @@ public class BinarySearchTree<E> {
   			slanted.add(i);
   		}
   		driver.drawTree(slanted);
-  		slanted.rebuild();
-  		driver.drawTree(slanted);
+  		//slanted.rebuild();
+  		//driver.drawTree(slanted);
   	}
     
 	/**

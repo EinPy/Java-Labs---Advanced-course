@@ -61,18 +61,21 @@ public class Mountain extends Fractal {
 			Point mid1, mid2, mid3;
 			if (mids.containsKey(ab)) {
 				mid1 = mids.get(ab);
+				//mids.remove(ab);
 			}else {
 				mid1 =  new Point(a2.getX() + (b2.getX() - a2.getX())/2,(int) (a2.getY() + (b2.getY() - a2.getY())/2 + r1));
 				mids.put(ab, mid1);
 			}
 			if (mids.containsKey(ac)) {
 				mid2 = mids.get(ac);
+				//mids.remove(ac);
 			}else {
 				mid2 = new  Point(a2.getX() + (c2.getX() - a2.getX())/2, (int) (a2.getY() + (c2.getY() - a2.getY())/2 + r2));
 				mids.put(ac, mid2);
 			}
 			if (mids.containsKey(bc)) {
 				mid3 = mids.get(bc);
+				//mids.remove(bc);
 			}else {
 				mid3 = new  Point(b2.getX() + (c2.getX() - b2.getX())/2, (int)  (b2.getY() + (c2.getY() - b2.getY())/2 + r3));
 				mids.put(bc, mid3);
